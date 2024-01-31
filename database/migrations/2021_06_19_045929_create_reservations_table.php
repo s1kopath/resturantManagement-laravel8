@@ -15,8 +15,10 @@ class CreateReservationsTable extends Migration
     {
         Schema::create('reservations', function (Blueprint $table) {
             $table->id();
-            $table->integer('tables_id');
-            $table->integer('user_id');
+            $table->foreignId('tables_id');
+            $table->foreign('tables_id')->references('id')->on('tables')->onDelete('cascade');
+            $table->foreignId('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreignId('time_slots_id')->constrained()->restrictOnDelete();
             $table->string('reservation_date');
             $table->string('message')->nullable();

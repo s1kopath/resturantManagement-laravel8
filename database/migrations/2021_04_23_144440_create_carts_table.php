@@ -15,8 +15,10 @@ class CreateCartsTable extends Migration
     {
         Schema::create('carts', function (Blueprint $table) {
             $table->id();
-            $table->integer('food_items_id');
-            $table->integer('user_id');
+            $table->foreignId('food_items_id');
+            $table->foreign('food_items_id')->references('id')->on('food_items')->onDelete('cascade');
+            $table->foreignId('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->integer('quantity')->unsigned()->default(0);
             $table->timestamps();
 

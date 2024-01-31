@@ -15,8 +15,10 @@ class CreateReviewsTable extends Migration
     {
         Schema::create('reviews', function (Blueprint $table) {
             $table->id();
-            $table->integer('food_items_id');
-            $table->integer('user_id');
+            $table->foreignId('food_item_id');
+            $table->foreign('food_item_id')->references('id')->on('food_items')->onDelete('cascade');
+            $table->foreignId('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->integer('rate');
             $table->text('message')->nullable();
             $table->timestamps();
